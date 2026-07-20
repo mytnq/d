@@ -62,7 +62,15 @@
       redirectTo(longUrl);
     } catch (err) {
       console.error('TNQ: Failed to resolve short link', err);
-      redirectTo(ERROR_URL);
+      // TEMPORARY DEBUG: show the real error and pause before redirecting,
+      // so we can see what's actually throwing instead of losing it to
+      // console-clear-on-navigate. Remove once the root cause is found.
+      showState(
+        'Debug: error caught',
+        `${err.name || 'Error'}: ${err.message || err}`,
+        ERROR_URL
+      );
+      setTimeout(() => redirectTo(ERROR_URL), 8000);
     }
   }
 
