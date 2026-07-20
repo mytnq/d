@@ -1,5 +1,5 @@
 (function () {
-  const API_BASE = 'https://totallynotquizlet.duckdns.org';
+  const API_BASE = 'https://tnq.duckdns.org';
   const STUDY_ROOT = 'https://totallynotquizlet.github.io/study/';
   const BROKEN_LINK_URL = 'https://totallynotquizlet.github.io/d/404link';
   const ERROR_URL = 'https://totallynotquizlet.github.io/d/';
@@ -26,13 +26,20 @@
     window.location.replace(url);
   }
 
-  // TODO: confirm this matches the actual encoding used elsewhere for the
-  // full/long share link (base64 deck JSON in the URL hash). If the real
-  // function differs (e.g. compression, a different encode order), swap
-  // this out for that exact logic so the destination page can read it.
+  // Use the same URL-safe Base64 encoding as the shared deck storage code.
+  function base64UrlEncode(str) {
+    const utf8Bytes = new TextEncoder().encode(str);
+    let binaryString = '';
+    for (let i = 0; i < utf8Bytes.length; i += 1) {
+      binaryString += String.fromCharCode(utf8Bytes[i]);
+    }
+    const base64String = btoa(binaryString);
+    return base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+
   function buildLongShareUrl(deck) {
     const json = JSON.stringify(deck);
-    const encoded = btoa(encodeURIComponent(json));
+    const encoded = base64UrlEncode(json);
     return `${STUDY_ROOT}#${encoded}`;
   }
 
