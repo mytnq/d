@@ -1,8 +1,8 @@
 (function () {
   const API_BASE = 'https://totallynotquizlet.duckdns.org';
   const STUDY_ROOT = 'https://totallynotquizlet.github.io/study/';
-  const BROKEN_LINK_URL = 'https://totallynotquizlet.github.io/d/404link';
-  const ERROR_URL = 'https://totallynotquizlet.github.io/d/';
+  const BROKEN_LINK_URL = 'https://mytnq.github.io/d/404link';
+  const ERROR_URL = 'https://mytnq.github.io/d/';
 
   const titleEl = document.getElementById('status-title');
   const messageEl = document.getElementById('status-message');
@@ -62,15 +62,7 @@
       redirectTo(longUrl);
     } catch (err) {
       console.error('TNQ: Failed to resolve short link', err);
-      // TEMPORARY DEBUG: show the real error and pause before redirecting,
-      // so we can see what's actually throwing instead of losing it to
-      // console-clear-on-navigate. Remove once the root cause is found.
-      showState(
-        'Debug: error caught',
-        `${err.name || 'Error'}: ${err.message || err}`,
-        ERROR_URL
-      );
-      setTimeout(() => redirectTo(ERROR_URL), 8000);
+      redirectTo(ERROR_URL);
     }
   }
 
