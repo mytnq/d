@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting | TotallyNotQuizlet</title>
+  <title>Redirecting… | TotallyNotQuizlet</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="status-card">
-    <h1>Redirecting...</h1>
-    <p>You’re being redirected to the destination link. If it doesn’t happen automatically, use the button below.</p>
+    <img src="tnq.png" alt="TotallyNotQuizlet logo" style="width: 120px; height: auto; margin-bottom: 16px;">
+    <h1 id="status-title">Redirecting...</h1>
+    <p id="status-message">You’re being redirected to the destination link. If it doesn’t happen automatically, use the button below.</p>
     <div class="actions">
-      <button class="main-action-button" onclick="window.location.href='https://totallynotquizlet.github.io/study/'">Continue</button>
+      <button id="continue-button" class="main-action-button">Continue</button>
     </div>
   </main>
+  <script src="script.js"></script>
 </body>
 </html>
