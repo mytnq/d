@@ -1,6 +1,6 @@
 (function () {
   const API_BASE = 'https://totallynotquizlet.duckdns.org';
-  const STUDY_ROOT = 'https://totallynotquizlet.github.io/study/';
+  const STUDY_ROOT = 'https://totallynotquizlet.codeberg.page/study/';
   const BROKEN_LINK_URL = 'https://mytnq.github.io/d/404link';
   const ERROR_URL = 'https://mytnq.github.io/d/';
 
