@@ -1,6 +1,7 @@
 (function () {
   const API_BASE = 'https://totallynotquizlet.duckdns.org';
   const STUDY_ROOT = 'https://totallynotquizlet.codeberg.page/study/';
+  const MEMORIZE_ROOT = 'https://totallynotquizlet.codeberg.page/memorize/';
   const BROKEN_LINK_URL = 'https://mytnq.github.io/d/404link';
   const ERROR_URL = 'https://mytnq.github.io/d/';
 
@@ -38,9 +39,16 @@
   }
 
   function buildLongShareUrl(deck) {
+    if (!deck || typeof deck !== 'object' || typeof deck.title !== 'string') {
+      throw new Error('Invalid shared set');
+    }
+    const isMemorize = Array.isArray(deck.passages) && !('cards' in deck);
+    if (!isMemorize && (!Array.isArray(deck.cards) || 'passages' in deck)) {
+      throw new Error('Invalid shared set');
+    }
     const json = JSON.stringify(deck);
     const encoded = base64UrlEncode(json);
-    return `${STUDY_ROOT}#${encoded}`;
+    return `${isMemorize ? MEMORIZE_ROOT : STUDY_ROOT}#${encoded}`;
   }
 
   async function resolveShortLink(code) {
@@ -83,7 +91,7 @@
     if (/\/d\/404link\/?$/.test(path)) {
       showState(
         "This link doesn't exist",
-        'That shared deck link is invalid or has expired.',
+        'That shared set link is invalid or has expired.',
         STUDY_ROOT
       );
       return;
